@@ -1,0 +1,20 @@
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+
+# Node
+node_modules/
+.next/
+.open-next/
+.wrangler/
+*.tsbuildinfo
+next-env.d.ts
+
+# env
+.env*
+!.env.example
+
+# misc
+.DS_Store
+*.log
