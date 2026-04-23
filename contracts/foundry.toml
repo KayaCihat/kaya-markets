@@ -9,6 +9,7 @@ via_ir = false
 remappings = [
   "@openzeppelin/=lib/openzeppelin-contracts/",
   "@chainlink/=lib/chainlink-brownie-contracts/contracts/src/v0.8/",
+  "@prb/math/=lib/prb-math/src/",
 ]
 
 [rpc_endpoints]
