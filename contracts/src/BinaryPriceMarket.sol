@@ -138,6 +138,18 @@ contract BinaryPriceMarket {
         totalNoWad = qNoWad < 0 ? 0 : uint256(qNoWad);
     }
 
+    /// @dev Amount of collateral that guarantees the market can pay every
+    /// possible winning-share payout regardless of outcome imbalance.
+    /// Equals `b * ln(2)` (≈ 0.6931 * b), rounded up to collateral units.
+    function requiredSubsidy() public view returns (uint256) {
+        // ln(2) in WAD = 693_147_180_559_945_309 (≈ 0.6931471805599453 * 1e18)
+        int256 ln2 = 693_147_180_559_945_309;
+        int256 bUnwrapped = SD59x18.unwrap(bWad);
+        // (bWad * ln2) / 1e18 — in WAD units of collateral value
+        uint256 subsidyWad = uint256((bUnwrapped * ln2) / 1e18);
+        return _fromWadCeil(subsidyWad);
+    }
+
     // ─── Trading ───────────────────────────────────────────────────────
 
     /// Buy `sharesWad` of the chosen side. Reverts if cost > `maxCostCollateral`.
